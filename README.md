@@ -1,0 +1,2 @@
+### Hexlet tests and linter status:
+[![Actions Status](https://github.com/Yushi23/php-oop-project-60/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/Yushi23/php-oop-project-60/actions)
