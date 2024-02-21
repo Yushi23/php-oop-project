@@ -5,8 +5,8 @@ namespace Hexlet\Validator;
 require_once 'schemes/StringScheme.php';
 require_once 'schemes/NumberScheme.php';
 
-use Hexlet\Schemes\StringScheme\StringScheme;
-use Hexlet\Schemes\NumberScheme\NumberScheme;
+use Hexlet\Validator\Schemes\StringScheme;
+use Hexlet\Validator\Schemes\NumberScheme;
 
 class Validator
 {
