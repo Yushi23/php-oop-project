@@ -4,10 +4,10 @@ namespace Hexlet\Validator\Schemes;
 
 class ArrayScheme extends BaseScheme
 {
-    private $checkSize = false;
-    private $lenArr;
-    private $arr = false;
-    private $type = 'array';
+    private bool $checkSize = false;
+    private int $lenArr;
+    private bool|array $arr = false;
+    private string $type = 'array';
 
     public function sizeof(int $lenArr): bool
     {
@@ -38,7 +38,7 @@ class ArrayScheme extends BaseScheme
         }
 
         if ($this->test) {
-            return $this->parent->getValidator()[$this->type][$this->fn]($value, $this->start);
+            return $this->parent->getValidator()[$this->type][$this->fn]($arr, $this->start);
         }
         return true;
     }
