@@ -55,4 +55,62 @@ class ValidatorTest extends TestCase
         $this->assertFalse($schema->isValid(-3)); // false
         $this->assertTrue($schema->isValid(5)); // true
     }
+
+    public function testArray(): void
+    {
+        $v = new Validator();
+        $schema = $v->array();
+
+        $this->assertTrue($schema->isValid(null)); // true
+
+        $schema = $schema->required();
+
+        $this->assertTrue($schema->isValid([])); // true
+        $this->assertTrue($schema->isValid(['hexlet'])); // true
+
+        $this->assertTrue($schema->sizeof(2)); // true
+
+        $this->assertFalse($schema->isValid(['hexlet'])); // false
+        $this->assertTrue($schema->isValid(['hexlet', 'code-basics'])); // true
+    }
+
+    public function testArrayShape(): void
+    {
+        $v = new Validator();
+
+        $schema = $v->array();
+
+        // Позволяет описывать валидацию для ключей массива
+        $schema->shape([
+            'name' => $v->string()->required(),
+            'age' => $v->number()->positive(),
+        ]);
+
+        $this->assertTrue($schema->isValid(['name' => 'kolya', 'age' => 100])); // true
+        $this->assertTrue($schema->isValid(['name' => 'maya', 'age' => null])); // true
+        $this->assertFalse($schema->isValid(['name' => '', 'age' => null])); // false
+        $this->assertFalse($schema->isValid(['name' => 'ada', 'age' => -5])); // false
+    }
+
+    public function testAddValidator(): void
+    {
+        $v = new Validator();
+
+        $fn = fn($value, $start) => str_starts_with($value, $start);
+        // Метод добавления новых валидаторов
+        // addValidator($type, $name, $fn)
+        $v->addValidator('string', 'startWith', $fn);
+
+        // Новые валидаторы вызываются через метод test
+        $schema = $v->string()->test('startWith', 'H');
+        $this->assertFalse($schema->isValid('exlet')); // false
+        $this->assertTrue($schema->isValid('Hexlet')); // true
+
+        $fn = fn($value, $min) => $value >= $min;
+        $v->addValidator('number', 'min', $fn);
+
+        $schema = $v->number()->test('min', 5);
+        $this->assertFalse($schema->isValid(4)); // false
+        $this->assertTrue($schema->isValid(6)); // true
+    }
 }
