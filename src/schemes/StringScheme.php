@@ -30,17 +30,20 @@ class StringScheme extends BaseScheme
 
             //расчет кол-ва символов, вывод результата
             return mb_strlen($value) >= $lengthStr;
-        } elseif (isset($this->subStr)) {
+        }
+
+        if (isset($this->subStr)) {
             //сброс значения subStr для пропуска этого условия на следующей итерации
             $subStr = $this->subStr;
             $this->subStr = null;
 
             //вывод результата
             return str_contains($value, $subStr);
-        } elseif ($this->test) {
-            return $this->parent->getValidator()[$this->type][$this->fn]($value, $this->start);
-        } else {
-            return empty($value) ? !$this->checkNullOrArr : true;
         }
+
+        if ($this->test) {
+            return $this->parent->getValidator()[$this->type][$this->fn]($value, $this->start);
+        }
+        return empty($value) ? !$this->checkNullOrArr : true;
     }
 }
