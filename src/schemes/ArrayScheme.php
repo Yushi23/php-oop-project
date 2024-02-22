@@ -6,7 +6,8 @@ class ArrayScheme extends BaseScheme
 {
     private bool $checkSize = false;
     private int $lenArr;
-    private bool|array $arr = false;
+    private bool $shape = false;
+    private array $arr;
     private string $type = 'array';
 
     public function sizeof(int $lenArr): bool
@@ -17,6 +18,7 @@ class ArrayScheme extends BaseScheme
 
     public function shape(array $arr): void
     {
+        $this->shape = true;
         $this->arr = $arr;
     }
 
@@ -30,7 +32,7 @@ class ArrayScheme extends BaseScheme
             return false;
         }
 
-        if ($this->arr) {
+        if ($this->shape) {
             $boolVar = array_map(function (mixed $shapeArr, mixed $resArr) {
                 return $shapeArr->isValid($resArr);
             }, $this->arr, $arr);
