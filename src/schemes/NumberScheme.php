@@ -4,10 +4,10 @@ namespace Hexlet\Validator\Schemes;
 
 class NumberScheme extends BaseScheme
 {
-    private $positive = false;
-    private $min;
-    private $max;
-    private $type = 'number';
+    private bool $positive = false;
+    private int $min;
+    private int $max;
+    private string $type = 'number';
 
     public function positive(): self
     {
@@ -24,7 +24,7 @@ class NumberScheme extends BaseScheme
     public function isValid(mixed $value): bool
     {
         //Проверка установки required
-        if ($this->checkNullOrArr && empty($value)) {
+        if ($this->checkNullOrArr && ($value === null || $value === 0)) {
             return false;
         }
 
