@@ -26,18 +26,19 @@ class NumberScheme extends BaseScheme
         //Проверка установки required
         if ($this->checkNullOrArr && empty($value)) {
             return false;
-        } elseif ($this->positive && $value < 0) { //проверка установки positive
-            return false;
-        } elseif (isset($this->min) && isset($this->max)) { //проверка установки range
-            if ($this->min <= $value && $value <= $this->max) {
-                return true;
-            } else {
-                return false;
-            }
-        } elseif ($this->test) {
-            return $this->parent->getValidator()[$this->type][$this->fn]($value, $this->start);
-        } else {
-            return true;
         }
+
+        if ($this->positive && $value < 0) { //проверка установки positive
+            return false;
+        }
+
+        if (isset($this->min) && isset($this->max)) { //проверка установки range
+            return $this->min <= $value && $value <= $this->max;
+        }
+
+        if ($this->test) {
+            return $this->parent->getValidator()[$this->type][$this->fn]($value, $this->start);
+        }
+        return true;
     }
 }
