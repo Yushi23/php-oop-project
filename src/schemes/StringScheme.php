@@ -4,9 +4,9 @@ namespace Hexlet\Validator\Schemes;
 
 class StringScheme extends BaseScheme
 {
-    private $lengthStr;
-    private $subStr;
-    private $type = 'string';
+    private null|int $lengthStr;
+    private null|string $subStr;
+    private string $type = 'string';
 
     public function minLength(int $number): self
     {
@@ -44,6 +44,6 @@ class StringScheme extends BaseScheme
         if ($this->test) {
             return $this->parent->getValidator()[$this->type][$this->fn]($value, $this->start);
         }
-        return empty($value) ? !$this->checkNullOrArr : true;
+        return $value === '' || $value === null ? !$this->checkNullOrArr : true;
     }
 }
