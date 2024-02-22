@@ -24,17 +24,22 @@ class ArrayScheme extends BaseScheme
     {
         if ($this->checkNullOrArr && !is_array($arr)) {
             return false;
-        } elseif ($this->checkSize) {
-            return count($arr) === $this->lenArr;
-        } elseif ($this->arr) {
+        }
+
+        if ($this->checkSize && count($arr) !== $this->lenArr) {
+            return false;
+        }
+
+        if ($this->arr) {
             $boolVar = array_map(function (mixed $shapeArr, mixed $resArr) {
                 return $shapeArr->isValid($resArr);
             }, $this->arr, $arr);
             return array_search(false, $boolVar, true) === false;
-        } elseif ($this->test) {
-            return $this->parent->getValidator()[$this->type][$this->fn]($value, $this->start);
-        } else {
-            return true;
         }
+
+        if ($this->test) {
+            return $this->parent->getValidator()[$this->type][$this->fn]($value, $this->start);
+        }
+        return true;
     }
 }
