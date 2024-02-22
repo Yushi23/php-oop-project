@@ -40,7 +40,7 @@ class StringScheme extends BaseScheme
         } elseif ($this->test) {
             return $this->parent->getValidator()[$this->type][$this->fn]($value, $this->start);
         } else {
-            return empty($value) || $value == '' ? !$this->checkNullOrArr : true;
+            return empty($value) ? !$this->checkNullOrArr : true;
         }
     }
 }
