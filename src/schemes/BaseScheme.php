@@ -6,7 +6,7 @@ use Hexlet\Validator\Validator;
 
 class BaseScheme
 {
-    protected object $parent;
+    protected Validator $parent;
     protected bool $checkNullOrArr = false;
     protected bool $test = false;
     protected string $fn;
