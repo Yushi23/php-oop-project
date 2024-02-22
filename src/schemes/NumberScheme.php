@@ -2,20 +2,14 @@
 
 namespace Hexlet\Validator\Schemes;
 
-class NumberScheme
+class NumberScheme extends BaseScheme
 {
-    private $checkNull = false;
     private $positive = false;
     private $min;
     private $max;
+    private $type = 'number';
 
-    public function required(): object
-    {
-        $this->checkNull = true;
-        return $this;
-    }
-
-    public function positive(): object
+    public function positive(): self
     {
         $this->positive = true;
         return $this;
@@ -30,7 +24,7 @@ class NumberScheme
     public function isValid(mixed $value): bool
     {
         //Проверка установки required
-        if ($this->checkNull && $value === null) {
+        if ($this->checkNullOrArr && $value === null) {
             return false;
         } elseif ($this->positive && $value < 0) { //проверка установки positive
             return false;
@@ -40,6 +34,8 @@ class NumberScheme
             } else {
                 return false;
             }
+        } elseif ($this->test) {
+            return $this->parent->getValidator()[$this->type][$this->fn]($value, $this->start);
         } else {
             return true;
         }
