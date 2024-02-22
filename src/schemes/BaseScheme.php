@@ -6,11 +6,11 @@ use Hexlet\Validator\Validator;
 
 class BaseScheme
 {
-    protected $parent;
-    protected $checkNullOrArr = false;
-    protected $test = false;
-    protected $fn;
-    protected $start;
+    protected object $parent;
+    protected bool $checkNullOrArr = false;
+    protected bool $test = false;
+    protected string $fn;
+    protected string $start;
 
     public function __construct(Validator $parent)
     {
