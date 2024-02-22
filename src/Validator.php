@@ -8,7 +8,7 @@ use Hexlet\Validator\Schemes\ArrayScheme;
 
 class Validator
 {
-    private $customValidatorFns;
+    private array $customValidatorFns;
 
     public function string(): StringScheme
     {
