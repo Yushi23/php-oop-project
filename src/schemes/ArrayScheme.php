@@ -30,7 +30,7 @@ class ArrayScheme extends BaseScheme
             $boolVar = array_map(function (mixed $shapeArr, mixed $resArr) {
                 return $shapeArr->isValid($resArr);
             }, $this->arr, $arr);
-            return in_array(false, $boolVar) ? false : true;
+            return array_search(false, $boolVar, true) === false;
         } elseif ($this->test) {
             return $this->parent->getValidator()[$this->type][$this->fn]($value, $this->start);
         } else {
