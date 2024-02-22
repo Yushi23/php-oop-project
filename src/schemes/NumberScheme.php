@@ -24,7 +24,7 @@ class NumberScheme extends BaseScheme
     public function isValid(mixed $value): bool
     {
         //Проверка установки required
-        if ($this->checkNullOrArr && $value === null) {
+        if ($this->checkNullOrArr && ($value === null || $value === 0)) {
             return false;
         } elseif ($this->positive && $value < 0) { //проверка установки positive
             return false;
